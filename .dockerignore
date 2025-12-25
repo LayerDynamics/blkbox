@@ -1,0 +1,39 @@
+# Rust build artifacts
+target/
+*.dylib
+*.so
+*.dll
+
+# Deno cache
+.deno/
+
+# Database (will be mounted as volume)
+blkbox.db
+blkbox.db-shm
+blkbox.db-wal
+
+# Logs
+*.log
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+*.md
+PHASES*.md
+ARCHITECTURE.md
+
+# Test files
+test_*.ts
+main_test.ts
+
+# IDE
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+
+# Example files
+blkbox/example-integration.ts

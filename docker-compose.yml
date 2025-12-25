@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  blkbox:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: blkbox-honeypot
+    ports:
+      # Honeypots
+      - "8080:8080"   # HTTP
+      - "2222:2222"   # SSH
+      - "5432:5432"   # PostgreSQL
+      - "3306:3306"   # MySQL
+      - "21:21"       # FTP
+      # Management
+      - "9000:9000"   # Dashboard
+      - "8443:8443"   # C2 Server
+    volumes:
+      # Persist database
+      - ./blkbox.db:/opt/blkbox/blkbox.db
+      # Persist logs
+      - ./blkbox.log:/opt/blkbox/blkbox.log
+      # Optional: GeoIP database
+      - ./GeoLite2-City.mmdb:/opt/blkbox/GeoLite2-City.mmdb:ro
+    environment:
+      - RUST_BACKTRACE=1
+      - DENO_DEPLOYMENT_ID=blkbox-docker
+    restart: unless-stopped
+    networks:
+      - blkbox-network
+
+networks:
+  blkbox-network:
+    driver: bridge
