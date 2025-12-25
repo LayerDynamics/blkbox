@@ -1,6 +1,6 @@
 # BlkBox - Modern Honeypot System
 
-**A sophisticated, multi-protocol honeypot with advanced tracking and authorized strike-back capabilities**
+**A multi-protocol honeypot with advanced tracking and authorized strike-back capabilities**
 
 [![Rust](https://img.shields.io/badge/rust-1.70+-orange.svg)](https://www.rust-lang.org/)
 [![Deno](https://img.shields.io/badge/deno-1.x-blue.svg)](https://deno.land/)
